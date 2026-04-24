@@ -1,0 +1,79 @@
+GREED ISLAND: THE SPIDER'S WEB
+Strategy File
+
+1) Problem Interpretation
+This challenge is a dynamic weighted graph problem.
+
+The graph contains 13 nodes, where each node represents a Phantom Troupe member.
+Each edge represents a Nen connection between two members.
+Each edge has a weight between 1 and 20, representing the strength of the connection.
+
+The app allows the user to:
+- Add an edge
+- Remove an edge
+- Update an edge weight
+- Search a node and show all connected edges
+- Recompute the MST after each operation
+- Detect suspicious or cursed edges
+
+2) MST Algorithm
+The application uses Kruskal's Algorithm to compute the Minimum Spanning Tree.
+
+Kruskal's Algorithm steps:
+1. Detect cursed or suspicious edges.
+2. Exclude suspicious edges from MST computation.
+3. Sort all valid edges by ascending weight.
+4. Use Union-Find to avoid cycles.
+5. Add an edge to the MST only if it connects two different components.
+6. Stop when the MST contains nodes - 1 edges.
+
+This produces a minimum-cost set of connections that keeps the graph connected without cycles.
+
+3) Optimization Strategy
+After every graph operation, the app recomputes the MST from the current edge list.
+
+For this challenge, the graph has only 13 nodes, so recomputing the MST is efficient and simple.
+Kruskal's Algorithm runs in O(E log E), where E is the number of edges.
+
+Union-Find is used to make cycle detection fast.
+
+4) Anomaly / Cursed Edge Detection
+Before computing the MST, the app checks every edge.
+
+An edge is considered suspicious if:
+- Its weight is less than or equal to 0
+- Its weight is greater than 20
+- It connects a node to itself
+- It uses an invalid node ID outside the range 1 to 13
+- It duplicates an existing undirected connection
+
+Suspicious edges are highlighted in red and excluded from the MST.
+
+5) Suspicion Level
+Each anomaly receives a suspicion score based on severity:
+- Invalid node or non-numeric weight: very high suspicion
+- Non-positive weight: very high suspicion
+- Self-loop: high suspicion
+- Weight greater than 20: high suspicion
+- Duplicate connection: medium suspicion
+
+The score is capped at 10.
+
+6) UI Strategy
+The graph is displayed using SVG.
+
+Edge colors:
+- Green: edge is part of the MST
+- Red: edge is suspicious or cursed
+- Purple: valid edge but not part of the MST
+
+The interface displays:
+- Current MST edges
+- Total MST weight
+- All graph edges
+- Anomaly report with reasons
+- Search results for any selected node
+
+7) Final Goal
+The goal is to maintain a dynamic Phantom Troupe network, detect cursed edges,
+and always display a stable MST that avoids dangerous or inconsistent connections.

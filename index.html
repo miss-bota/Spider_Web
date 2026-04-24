@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Greed Island: The Spider's Web</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Meteor City Dynamic Graph System</p>
+      <h1>GREED ISLAND: THE SPIDER'S WEB</h1>
+      <p class="subtitle">Maintain the Phantom Troupe network, detect cursed edges, and rebuild the MST with Kruskal.</p>
+    </div>
+    <div class="badge">13 Spiders</div>
+  </header>
+
+  <main class="layout">
+    <section class="panel controls">
+      <h2>Graph Controls</h2>
+
+      <div class="form-group">
+        <label>Node A</label>
+        <input id="fromInput" type="number" min="1" max="13" placeholder="1" />
+      </div>
+
+      <div class="form-group">
+        <label>Node B</label>
+        <input id="toInput" type="number" min="1" max="13" placeholder="2" />
+      </div>
+
+      <div class="form-group">
+        <label>Weight</label>
+        <input id="weightInput" type="number" placeholder="4" />
+      </div>
+
+      <button id="addBtn" class="primary">Add Edge</button>
+
+      <hr />
+
+      <div class="form-group">
+        <label>Edge ID</label>
+        <input id="edgeIdInput" type="number" placeholder="edge id" />
+      </div>
+
+      <button id="removeBtn">Remove Edge</button>
+
+      <div class="form-group">
+        <label>New Weight</label>
+        <input id="newWeightInput" type="number" placeholder="new weight" />
+      </div>
+
+      <button id="updateBtn">Update Weight</button>
+
+      <hr />
+
+      <div class="form-group">
+        <label>Search Node</label>
+        <input id="searchInput" type="number" min="1" max="13" placeholder="node id" />
+      </div>
+
+      <button id="searchBtn">Search Node</button>
+
+      <div id="searchResult" class="small-output"></div>
+    </section>
+
+    <section class="panel graph-panel">
+      <div class="section-title">
+        <h2>Spider Web Visualization</h2>
+        <p>Green = MST, Red = cursed, Purple = normal</p>
+      </div>
+
+      <svg id="graphSvg" viewBox="0 0 720 620" role="img" aria-label="Interactive graph visualization"></svg>
+
+      <div id="edgeDetails" class="edge-details">Click an edge to reveal its weight, status, and suspicion level.</div>
+    </section>
+
+    <section class="panel results">
+      <h2>MST State</h2>
+      <p class="muted">Current MST edges:</p>
+      <ul id="mstList"></ul>
+      <div class="total-box">Total Weight: <span id="totalWeight">0</span></div>
+
+      <hr />
+
+      <h2>Anomaly Report</h2>
+      <div id="anomalyReport"></div>
+
+      <hr />
+
+      <h2>All Edges</h2>
+      <div id="edgeTable"></div>
+      <div id="edgeDetails" class="edge-details">
+  Click an edge to reveal its details.
+</div>
+    </section>
+  </main>
+
+  <section class="panel strategy-card">
+    <h2>Strategy Summary</h2>
+    <p>
+      The system uses <strong>Kruskal's Algorithm</strong>. It first rejects anomalous/cursed edges,
+      sorts valid edges by weight, then uses Union-Find to build a cycle-free MST.
+    </p>
+    <p>
+      Cursed edges are detected using constraints: weight must be between 1 and 20,
+      no self-loops, no duplicate connections, and no invalid node IDs.
+    </p>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
